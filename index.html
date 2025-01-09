@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors</title>
+    <script>
+      let humanScore = 0;
+      let computerScore = 0;
+      let humanChoice;
+      let computerChoice;
+
+      const getComputerChoice = () => {
+        const randomNumber = Math.random();
+        if (randomNumber <= 1 / 3) {
+          return "rock";
+        } else if (randomNumber > 1 / 3 && randomNumber < (1 / 3) * 2) {
+          return "paper";
+        } else {
+          return "scissors";
+        }
+      };
+
+      const getHumanChoice = () => {
+        const choice = prompt("Rock, paper or scissors?");
+        choice.toLowerCase();
+        if (choice != "rock" && choice != "paper" && choice != "scissors") {
+          alert("Invalid Choice");
+          getHumanChoice();
+        } else {
+          return choice;
+        }
+      };
+
+      const playRound = () => {
+        computerChoice = getComputerChoice();
+        humanChoice = getHumanChoice();
+
+        console.log(`Your ${humanChoice} versus computer's ${computerChoice}`);
+
+        if (computerChoice == humanChoice) {
+          console.log("It's a tie!");
+        } else if (
+          (computerChoice == "rock" && humanChoice == "scissors") ||
+          (computerChoice == "paper" && humanChoice == "rock") ||
+          (computerChoice == "scissors" && humanChoice == "paper")
+        ) {
+          computerScore++;
+          console.log("You lose!");
+        } else if (
+          (humanChoice == "rock" && computerChoice == "scissors") ||
+          (humanChoice == "paper" && computerChoice == "rock") ||
+          (humanChoice == "scissors" && computerChoice == "paper")
+        ) {
+          humanScore++;
+          console.log("You win!");
+        }
+
+        console.log(`Human score: ${humanScore}`);
+        console.log(`Computer score: ${computerScore}`);
+      };
+
+      const playGame = () => {
+        for (i = 0; i < 5; i++) {
+          playRound();
+        }
+
+        if (humanScore < computerScore) {
+          alert("You lose the game, sorry!");
+        } else if (humanScore > computerScore) {
+          alert("You win the game, congratulations!");
+        } else if (humanScore == computerScore) {
+          alert("It's a tie!");
+        }
+      };
+
+      playGame();
+    </script>
+  </head>
+  <body></body>
+</html>
